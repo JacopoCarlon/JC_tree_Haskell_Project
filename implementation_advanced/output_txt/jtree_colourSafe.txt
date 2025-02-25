@@ -1,0 +1,19 @@
+../zzz_stress_tests/ : /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests
+├── aaa
+│   └── tizio.txt
+├── bbb
+│   └── caio.txt
+├── ccc
+│   └── semprionio.txt
+├── www
+│   ├── aaa -> /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests/aaa
+│   │   └── tizio.txt
+│   ├── zparent -> /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests  [recursive, not followed]
+│   │    ^^^ [Cycle detected: /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests]
+│   └── zsecret -> /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests/zzz/secret.txt
+└── zzz
+    ├── .hidden_secret.txt
+    ├── my_parent -> /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests  [recursive, not followed]
+    │    ^^^ [Cycle detected: /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests]
+    ├── my_secret -> /home/jacopo/Desktop/tree_Haskell_Project/zzz_stress_tests/zzz/secret.txt
+    └── secret.txt

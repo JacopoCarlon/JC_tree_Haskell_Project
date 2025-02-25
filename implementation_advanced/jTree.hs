@@ -9,7 +9,7 @@ import Control.Monad (forM_, when, filterM)
 import Data.List (intercalate, isPrefixOf, sort)
 import System.Console.ANSI
 import System.Environment (getArgs)
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, isJust)
 import Data.Bits ((.|.), (.&.))
 import Control.Exception (handle, SomeException(..))
 import Numeric (showOct)
@@ -50,17 +50,22 @@ main = do
     <> progDesc "Display directory tree structure"
     <> header "haskell-tree - directory tree viewer" )
   
+  -- Disable color option if output file is specified
+  let adjustedOpts = if isJust (optOutput opts)
+                     then opts { optColor = False }
+                     else opts
+  
   absPath <- handle (\(SomeException _) -> normalise <$> makeAbsolute path) $ do
-    if optFullPath opts
+    if optFullPath adjustedOpts
       then canonicalizePath path
       else normalise <$> makeAbsolute path
   
-  let initialDisplayPath = if optFullPath opts
+  let initialDisplayPath = if optFullPath adjustedOpts
                            then path ++ " : " ++ absPath
                            else path
                         
-  tree <- generateTree absPath 0 opts Set.empty [] initialDisplayPath
-  case optOutput opts of
+  tree <- generateTree absPath 0 adjustedOpts Set.empty [] initialDisplayPath
+  case optOutput adjustedOpts of
     Just outFile -> writeFile outFile (unlines tree)
     Nothing -> forM_ tree putStrLn
   where

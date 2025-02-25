@@ -7,7 +7,7 @@ options :
     --d : only directories
     --L : follow symlinks and avoid cycles
     --f : fullpath prefix
-    --c : colorize output (file vs dir vs symlink)
+    --c : colorize output (file vs dir vs symlink) 
     --p : show permissions
     --s : show sizes
     --level depth : show delpth children ( 0 == only target children )
@@ -21,7 +21,9 @@ use example :
 
 
 output to txt (examples visible in "output_txt" folder) :
-    ./haskell-tree --a --L ../zzz_stress_tests/ > output_txt/jtree.txt
-    ./haskell-tree --a --L ../zzz_stress_tests/ --output output_txt/jtree.txt
+    ./haskell-tree --L --a ../zzz_stress_tests/ > output_txt/jtree.txt
+    ./haskell-tree --L --a --f --c --output output_txt/jtree_colourSafe.txt ../zzz_stress_tests/
     tree -l -a ../zzz_stress_tests/ > output_txt/tree.txt
+(for output to file, either use "--output pathFile" option, or avoid using "--c")
+
 
