@@ -1,0 +1,27 @@
+compile : 
+    ghc -O2 jTree.hs -o haskell-tree
+
+
+options : 
+    --a : show hidden
+    --d : only directories
+    --L : follow symlinks and avoid cycles
+    --f : fullpath prefix
+    --c : colorize output (file vs dir vs symlink)
+    --p : show permissions
+    --s : show sizes
+    --level depth : show delpth children ( 0 == only target children )
+    --output path : writes output directly to file (creates files if it does not exist)
+
+
+use example : 
+    ./haskell-tree --a --c --L --f ..
+    ./haskell-tree --L --f --c --a --p --s --level 1 ../.. 
+(comparisons against tree are visible in "comparison_capts" folder)
+
+
+output to txt (examples visible in "output_txt" folder) :
+    ./haskell-tree --a --L ../zzz_stress_tests/ > output_txt/jtree.txt
+    ./haskell-tree --a --L ../zzz_stress_tests/ --output output_txt/jtree.txt
+    tree -l -a ../zzz_stress_tests/ > output_txt/tree.txt
+

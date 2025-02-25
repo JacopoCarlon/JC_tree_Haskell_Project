@@ -1,0 +1,18 @@
+../zzz_stress_tests/
+├── aaa
+│   └── tizio.txt
+├── bbb
+│   └── caio.txt
+├── ccc
+│   └── semprionio.txt
+├── www
+│   ├── aaa -> ../aaa/  [recursive, not followed]
+│   ├── zparent -> ../zzz/my_parent  [recursive, not followed]
+│   └── zsecret -> ../zzz/secret.txt
+└── zzz
+    ├── .hidden_secret.txt
+    ├── my_parent -> ..  [recursive, not followed]
+    ├── my_secret -> secret.txt
+    └── secret.txt
+
+8 directories, 7 files
