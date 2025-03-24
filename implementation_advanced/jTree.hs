@@ -247,8 +247,9 @@ shouldInclude parentPath entry opts = do
   return $ (optAll opts || not isHidden) &&
            (not (optDirOnly opts) || isDir)
 
-checkIfDirectory :: FilePath -> Options -> IO Bool
-checkIfDirectory path opts = do
+
+undf_checkIfDirectory :: FilePath -> Options -> IO Bool
+undf_checkIfDirectory path opts = do
   symlinkStatus <- handle (\(SomeException _) -> return undefined) $ getSymbolicLinkStatus path
   let isSymlink = isSymbolicLink symlinkStatus
   if isSymlink
@@ -260,6 +261,34 @@ checkIfDirectory path opts = do
     else doesDirectoryExist path
   where
     isDirectory status = (fileMode status .&. 0o040000) /= 0
+
+
+checkIfDirectory :: FilePath -> Options -> IO Bool
+checkIfDirectory path opts = handleExceptions $ do
+  -- First check if it's a symlink (without following)
+  isSymlink <- isSymbolicLink <$> getSymbolicLinkStatus path
+  
+  if isSymlink
+    then handleSymlinkCase
+    else checkRegularDirectory
+  where
+    handleExceptions = handle (\(SomeException _) -> return False)
+    
+    handleSymlinkCase
+      | optFollow opts = checkTargetDirectory
+      | otherwise = return False  -- Treat symlinks as non-directories if not following
+    
+    checkTargetDirectory = do
+      targetStatus <- getFileStatus path  -- Follows symlink if optFollow=True
+      return $ isDirectory targetStatus
+      
+    checkRegularDirectory = do
+      dirExists <- doesDirectoryExist path
+      return dirExists
+      
+    isDirectory status = (fileMode status .&. 0o040000) /= 0
+
+
 
 -- Helper functions
 applyColor :: Bool -> String -> Options -> String

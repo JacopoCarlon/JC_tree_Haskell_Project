@@ -17,6 +17,7 @@ options :
 use example : 
     ./haskell-tree --a --c --L --f ..
     ./haskell-tree --L --f --c --a --p --s --level 1 ../.. 
+    ./haskell-tree --L --f --c --a --p --s --level 2 ..
 (comparisons against tree are visible in "comparison_capts" folder)
 
 
