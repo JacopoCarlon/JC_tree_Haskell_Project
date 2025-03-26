@@ -5,7 +5,7 @@ This was a project developed by me after attending the "Foundamentals of Functio
 
 # How to build : 
 -  clone repository
--  cd advanced_implementation
+-  cd implementation_advanced
 -  compile : 
     ghc -O2 jTree.hs -o haskell-tree
 
