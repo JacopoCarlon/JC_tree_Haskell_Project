@@ -1,6 +1,6 @@
 # Haskell implementation of Tree (recursive directory listing program)
 
-This was a project developed by me after attending the "Foundamentals of Functional Programming" course by Prof. Luca Abeni , at Sant'Anna School of Advanced Studies (Pisa), 2023-2024.
+This was a project developed by me after attending the "Foundamentals of Functional Programming" course by Prof. [Luca Abeni](https://github.com/lucabe72), at Sant'Anna School of Advanced Studies (Pisa), 2023-2024.
 
 
 # How to build : 
